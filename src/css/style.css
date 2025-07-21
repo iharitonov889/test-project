@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Roboto", sans-serif;
+}
+
+.wrapper {
+  /*min-height: 100%;*/
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fb;
+}
+
+.content {
+  flex: 1; /*flex: 1 1 auto;*/
+  flex-grow: 1;
+}
+
+.blockBody {
+  background: #14213d;
+  /*box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+}
+.marginHorizontal {
+  margin: auto;
+}
+.form-control {
+  background: #14213d;
+}
+
+.frame {
+  display: flex;
+
+  /*
+  display: flex;
+  flex-direction: row;
+  */
+}
+
+.blockVerticalCenter {
+  /*
+  
+  */
+  display: flex;
+  justify-content: center;
+
+  /* max-width: fit-content;
+  margin-left: auto;
+  margin-right: auto;*/
+}
+.blockHorizontalCenter {
+  align-items: center;
+}
+.textCenter {
+  text-align: center;
+}
+
+.frameWOIF {
+  display: flex;
+  align-items: center;
+}
+
+.mtmb {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.pad {
+  padding: 10px;
+}
+
+.flex-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.flex-element {
+  text-align: center;
+}
+
+input[type="submit"] {
+  background: #6b9aff;
+  box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+.form-control {
+  background: #e5e5e599;
+}
+.form-control:focus {
+  background: #e5e5e599;
+}
+
+.btn {
+  background: #fca311;
+  border-radius: 5;
+  /*box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);*/
+}
+.btn:hover {
+  background: #fca311;
+}
+.imgbutton {
+  width: 35px;
+  height: 35px;
+}
+
+.btnlikelink {
+  width: 200px;
+  height: 65px;
+  background: none;
+  border: none;
+  padding: 0 !important;
+  box-shadow: none;
+  color: black;
+  /*color: #069;
+   text-decoration: underline;
+   cursor: pointer;*/
+}
+
+h1 {
+  margin: 0;
+  justify-content: center;
+  color: #fca311;
+}
+
+a {
+  color: #ffffff;
+}
+.headerLogo {
+  width: 105px;
+  height: 105px;
+  /*filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));*/
+}
+label {
+  color: #ffffff;
+}
+.headerTitle {
+  /*font-family: 'Roboto', sans-serif;*/
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+  line-height: 28px;
+  text-align: center;
+  color: #000000;
+}
