@@ -2,9 +2,12 @@
    <router-view />
   <div class="wrapper">
     <div class="content">
+      <form method="POST">
       <div class="flex-container blockBody col-sm-4 marginHorizontal">
         <div class="col-sm-12 mb-2">
           <h1 class="textCenter">Registration</h1>
+
+
 
         <div class="col-sm-12 mb-2">
 
@@ -76,14 +79,13 @@
 
       </div>
     </div>
+    </form>
   </div>
    </div>
 </template>
 
 <script lang="ts">
-import 'https://code.jquery.com/jquery-3.7.1.min.js';
-import '/src/scripts/registration.js';
-export default {};
+import '/src/css/style.css';
 /*
 export default {//works but break router-link
   mounted() {

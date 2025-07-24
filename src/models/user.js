@@ -1,5 +1,5 @@
-import { Model, DataTypes } from "sequelize";
-import sequelize from "../../db/index.js";
+import { Model, DataTypes } from 'sequelize';
+import sequelize from '../../db/index.js';
 export default class User extends Model {}
 
 User.init(
@@ -20,12 +20,12 @@ User.init(
       allowNull: false,
     },
     email: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(50),
       unique: true,
       allowNull: false,
     },
     phone: {
-      type: DataTypes.STRING(30),
+      type: DataTypes.STRING(16),
       unique: true,
       allowNull: false,
     },
@@ -33,8 +33,8 @@ User.init(
   {
     sequelize,
     timestamps: false,
-    modelName: "User",
-  }
+    modelName: 'User',
+  },
 );
 
 /*export { User };*/

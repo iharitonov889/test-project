@@ -20,7 +20,7 @@ class passwordValidation extends Error {
   }
 }
 
-const registerUser = async (email, password) => {
+const registerUser = async (name, password, email, phone) => {
   const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
   if (!emailRegex.test(email)) {
     return new emailValidation(
@@ -41,12 +41,12 @@ const registerUser = async (email, password) => {
   }
 
   if (emailRegex.test(email) && passwordRegex.test(password)) {
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = hashPassword(password);
     const otp = generateOtp();
-    await sendOtp(email, otp);
-    await User.create({ email, password: hashedPassword });
-    const registeredUser = await User.findOne({ where: { email } });
-    storeOtp(registeredUser.id, otp); /* storeOtp(userId.id, otp);*/
+    void sendOtp(email, otp);
+    await User.create({ name, password: hashedPassword, email, phone });
+    const registeredUser = User.findOne({ where: { email } });
+    await storeOtp(registeredUser.id, otp); /* storeOtp(userId.id, otp);*/
     return {
       message: `Congratulations on successful registration, your ID: ${registeredUser.id}, now confirm your OTP, that sent to your email`,
     };

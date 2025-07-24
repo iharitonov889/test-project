@@ -12,13 +12,22 @@
     "test": "echo \"No test specified\" && exit 0",
     "dev": "quasar dev",
     "build": "quasar build",
-    "postinstall": "quasar prepare"
+    "postinstall": "quasar prepare",
+    "server": "nodemon --env-file=config/.env index.js",
+    "client": "yarn quasar dev",
+    "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
+    "axios": "^1.10.0",
     "bcrypt": "^6.0.0",
     "bootstrap": "^5.3.7",
+    "concurrently": "^9.2.0",
+    "dotenv": "^17.2.0",
     "nodemailer": "^7.0.5",
+    "nodemon": "^3.1.10",
+    "pg": "^8.16.3",
+    "postgre": "^0.1.8",
     "quasar": "^2.16.0",
     "redis": "^5.6.0",
     "sequelize": "^6.37.7",
