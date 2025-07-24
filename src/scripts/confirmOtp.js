@@ -1,25 +1,42 @@
 import User from '../models/user.js';
 import { delRedis, /*storeActivation,*/ getRedis } from '../libs/redis.js';
 
-const confirmOtp = async (req, res) => {
-  const { clientId, clientOtp } = req.body;
+class noOtp extends Error {
+  constructor(message) {
+    super(message);
+  }
+}
+class nullOtp extends Error {
+  constructor(message) {
+    super(message);
+  }
+}
+class otpMatch extends Error {
+  constructor(message) {
+    super(message);
+  }
+}
+class isActivated extends Error {
+  constructor(message) {
+    super(message);
+  }
+}
+const confirmOtp = async (clientId, clientOtp) => {
   const redisOtp = await getRedis(clientId);
 
   const existingUser = await User.findOne({ where: { id: clientId } });
-  if (!existingUser) return res.status(404).json({ error: 'User not found, please check your ID' });
-  if (redisOtp === null) {
-    return res.status(404).json({
-      error: 'To confirm your email, please resend OTP code',
-    });
+
+  if (!existingUser) {
+    return new noOtp('User not found, please check your ID');
   }
-  if (clientOtp != redisOtp.otp && !existingUser.isActive)
-    return res.status(404).json({
-      error: 'Error in OTP input, please check your OTP and try again',
-    });
+  if (redisOtp === null) {
+    return new nullOtp('To confirm your email, please resend OTP code');
+  }
+  if (clientOtp != redisOtp.otp && !existingUser.isActive) {
+    return new otpMatch('Error in OTP input, please check your OTP and try again');
+  }
   if (existingUser.isActive == true) {
-    return res.status(201).json({
-      message: 'Congratulations, your email already confirmed',
-    });
+    return isActivated('Congratulations, your email already confirmed');
   }
 
   if (clientOtp == redisOtp.otp && existingUser.isActive == false) {
@@ -29,10 +46,10 @@ const confirmOtp = async (req, res) => {
     await delRedis(clientId);
     existingUser.isActive = true;
     await existingUser.save();
-    return res.status(202).json({
-      message: 'Congratulations, you confirmed your email ',
-    });
+    return {
+      message: 'Congratulations, you successfully confirmed your email',
+    };
   }
 };
 
-export { confirmOtp };
+export { noOtp, nullOtp, otpMatch, isActivated, confirmOtp };

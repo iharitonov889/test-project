@@ -10,7 +10,7 @@ User.init(
       autoIncrement: true,
       allowNull: false,
     },
-    name: {
+    login: {
       type: DataTypes.STRING(30),
       unique: true,
       allowNull: false,
@@ -28,6 +28,10 @@ User.init(
       type: DataTypes.STRING(16),
       unique: true,
       allowNull: false,
+    },
+    isActive: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
   },
   {

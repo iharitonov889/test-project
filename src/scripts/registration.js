@@ -20,7 +20,7 @@ class passwordValidation extends Error {
   }
 }
 
-const registerUser = async (name, password, email, phone) => {
+const registerUser = async (login, password, email, phone) => {
   const emailRegex = /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/;
   if (!emailRegex.test(email)) {
     return new emailValidation(
@@ -39,13 +39,13 @@ const registerUser = async (name, password, email, phone) => {
       'The password must contain at least 8 characters, uppercase and lowercase latin letter, digit and a special character',
     );
   }
-
+  //problem with asyncs()
   if (emailRegex.test(email) && passwordRegex.test(password)) {
-    const hashedPassword = hashPassword(password);
-    const otp = generateOtp();
-    void sendOtp(email, otp);
-    await User.create({ name, password: hashedPassword, email, phone });
-    const registeredUser = User.findOne({ where: { email } });
+    const hashedPassword = await hashPassword(password);
+    const otp = await generateOtp();
+    await sendOtp(email, otp);
+    await User.create({ login, password: hashedPassword, email, phone });
+    const registeredUser = await User.findOne({ where: { email } });
     await storeOtp(registeredUser.id, otp); /* storeOtp(userId.id, otp);*/
     return {
       message: `Congratulations on successful registration, your ID: ${registeredUser.id}, now confirm your OTP, that sent to your email`,
@@ -54,3 +54,4 @@ const registerUser = async (name, password, email, phone) => {
 };
 
 export { emailValidation, emailRegistered, passwordValidation, registerUser };
+//

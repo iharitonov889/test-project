@@ -5,8 +5,8 @@ const hashPassword = async (password) => {
   return hashPassword;
 };
 */
-const hashPassword = (password) => {
-  const hashPassword = hash(password, 10);
+const hashPassword = async (password) => {
+  const hashPassword = await hash(password, 10);
   return hashPassword;
 };
 const comparePassword = async (password, hashPassword) => {

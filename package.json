@@ -13,14 +13,15 @@
     "dev": "quasar dev",
     "build": "quasar build",
     "postinstall": "quasar prepare",
-    "server": "nodemon --env-file=config/.env index.js",
+    "server": "node --env-file=config/.env index.ts",
     "client": "yarn quasar dev",
     "start": "concurrently \"npm run server\" \"npm run client\""
   },
   "dependencies": {
     "@quasar/extras": "^1.16.4",
-    "axios": "^1.10.0",
+    "axios": "^1.11.0",
     "bcrypt": "^6.0.0",
+    "body-parser": "^2.2.0",
     "bootstrap": "^5.3.7",
     "concurrently": "^9.2.0",
     "dotenv": "^17.2.0",
