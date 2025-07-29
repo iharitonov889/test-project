@@ -3,7 +3,7 @@ import { generateOtp } from '../libs/otp.js';
 import { sendOtp } from './otpMail.js';
 import { getRedis, storeOtp } from '../libs/redis.js';
 
-class noUser extends Error {
+class noUserResend extends Error {
   constructor(message) {
     super(message);
   }
@@ -32,7 +32,7 @@ class otpAlive extends Error {
 const resendOtp = async (clientId) => {
   const existingUser = await User.findOne({ where: { id: clientId } });
   if (!existingUser) {
-    return new noUser('User not found, please check your ID and try again');
+    return new noUserResend('User not found, please check your ID and try again');
   }
   console.log(redisData);
   const redisData = await getRedis(clientId); /*otp OR active*/
@@ -61,7 +61,7 @@ const resendOtp = async (clientId) => {
     return new otpAlive('Check your email for OTP code');
   }
 };
-export { noUser, userAuth, otpSent, changePass, otpAlive, resendOtp };
+export { noUserResend, userAuth, otpSent, changePass, otpAlive, resendOtp };
 /*  if (existingUser.isActive == true) {
     return res.status(201).json({
       message: "Congratulations, your email already activated",

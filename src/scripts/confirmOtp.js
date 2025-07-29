@@ -1,7 +1,7 @@
 import User from '../models/user.js';
 import { delRedis, /*storeActivation,*/ getRedis } from '../libs/redis.js';
 
-class noOtp extends Error {
+class noUserConfirm extends Error {
   constructor(message) {
     super(message);
   }
@@ -27,7 +27,7 @@ const confirmOtp = async (clientId, clientOtp) => {
   const existingUser = await User.findOne({ where: { id: clientId } });
 
   if (!existingUser) {
-    return new noOtp('User not found, please check your ID');
+    return new noUserConfirm('User not found, please check your ID');
   }
   if (redisOtp === null) {
     return new nullOtp('To confirm your email, please resend OTP code');
@@ -52,4 +52,4 @@ const confirmOtp = async (clientId, clientOtp) => {
   }
 };
 
-export { noOtp, nullOtp, otpMatch, isActivated, confirmOtp };
+export { noUserConfirm, nullOtp, otpMatch, isActivated, confirmOtp };

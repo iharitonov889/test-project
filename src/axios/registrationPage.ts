@@ -1,4 +1,4 @@
-import axios from 'axios';
+/*import axios from 'axios';
 
 async function submitForm() {
   const login = document.getElementById('login').value;
@@ -18,3 +18,4 @@ async function submitForm() {
 }
 
 export { submitForm };
+*/

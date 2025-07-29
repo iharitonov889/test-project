@@ -4,16 +4,30 @@ import {
   passwordValidation,
   registerUser,
 } from '../scripts/registration.js';
-import { noOtp, nullOtp, otpMatch, isActivated, confirmOtp } from '../scripts/confirmOtp.js';
 import {
-  noUser,
+  noUserConfirm,
+  nullOtp,
+  otpMatch,
+  isActivated,
+  confirmOtp,
+} from '../scripts/confirmOtp.js';
+import {
+  noUserResend,
   userAuth,
   otpSent,
   changePass,
   otpAlive,
   resendOtp,
 } from '../scripts/resendOtp.js';
-import { authorization } from '../scripts/authorization.js';
+import {
+  noUserAuthorization,
+  noOtp,
+  confirmOtpAuthorization,
+  invalidPassword,
+  noAttempts,
+  alreadyAuthorized,
+  authorization,
+} from '../scripts/authorization.js';
 
 const userController = {
   registerUser: async (req, res) => {
@@ -44,7 +58,7 @@ const userController = {
   confirmOtp: async (req, res) => {
     const { clientId, clientOtp } = req.body;
     const classInstance = await confirmOtp(clientId, clientOtp);
-    if (classInstance instanceof noOtp) {
+    if (classInstance instanceof noUserConfirm) {
       return res.status(400).json({
         error: `${classInstance.message}`,
       });
@@ -74,7 +88,7 @@ const userController = {
   resendOtp: async (req, res) => {
     const { clientId } = req.body;
     const classInstance = await resendOtp(clientId);
-    if (classInstance instanceof noUser) {
+    if (classInstance instanceof noUserResend) {
       return res.status(400).json({
         error: `${classInstance.message}`,
       });
@@ -86,12 +100,12 @@ const userController = {
     }
     if (classInstance instanceof otpSent) {
       return res.status(201).json({
-        error: `${classInstance.message}`,
+        message: `${classInstance.message}`,
       });
     }
     if (classInstance instanceof changePass) {
       return res.status(202).json({
-        error: `${classInstance.message}`,
+        message: `${classInstance.message}`,
       });
     }
     if (classInstance instanceof otpAlive) {
@@ -101,9 +115,46 @@ const userController = {
     }
   },
 
-  authUser: async (req) => {
+  authorizationUser: async (req, res) => {
     const { login, password } = req.body;
-    await authorization(login, password);
+    const classInstance = await authorization(login, password);
+    //res.json({ user info? });
+
+    if (classInstance instanceof noUserAuthorization) {
+      return res.status(400).json({
+        error: `${classInstance.message}`,
+      });
+    }
+    if (classInstance instanceof noOtp) {
+      return res.status(400).json({
+        error: `${classInstance.message}`,
+      });
+    }
+    if (classInstance instanceof confirmOtpAuthorization) {
+      return res.status(400).json({
+        error: `${classInstance.message}`,
+      });
+    }
+    if (classInstance instanceof invalidPassword) {
+      return res.status(400).json({
+        message: `${classInstance.message}`,
+      });
+    }
+    if (classInstance instanceof noAttempts) {
+      return res.status(400).json({
+        message: `${classInstance.message}`,
+      });
+    }
+    if (classInstance instanceof alreadyAuthorized) {
+      return res.status(400).json({
+        message: `${classInstance.message}`,
+      });
+    }
+    if (classInstance.message) {
+      return res.status(200).json({
+        message: `${classInstance.message}`,
+      });
+    }
   },
 };
 

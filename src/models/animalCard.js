@@ -1,8 +1,8 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../db/index.js';
 
-export default class User extends Model {}
-User.init(
+export default class AnimalCard extends Model {}
+AnimalCard.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,23 +10,32 @@ User.init(
       autoIncrement: true,
       allowNull: false,
     },
-    login: {
-      type: DataTypes.STRING(30),
-      unique: true,
+    animalId: {
+      type: DataTypes.INTEGER,
       allowNull: false,
     },
-    password: {
+    aviaryNumber: {
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING(50),
-      unique: true,
+    moniker: {
+      type: DataTypes.STRING(128),
       allowNull: false,
     },
-    phone: {
-      type: DataTypes.STRING(16),
-      unique: true,
+    birthday: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    food: {
+      type: DataTypes.STRING(128),
+      allowNull: false,
+    },
+    photo: {
+      type: DataTypes.STRING(128),
       allowNull: false,
     },
     isActive: {
@@ -37,7 +46,7 @@ User.init(
   {
     sequelize,
     timestamps: false,
-    modelName: 'User',
+    modelName: 'AnimalCard',
   },
 );
 

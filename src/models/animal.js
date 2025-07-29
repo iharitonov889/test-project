@@ -1,8 +1,9 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../db/index.js';
+import animalCard from './animalCard.js';
 
-export default class User extends Model {}
-User.init(
+export default class Animal extends Model {}
+Animal.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -10,23 +11,13 @@ User.init(
       autoIncrement: true,
       allowNull: false,
     },
-    login: {
+    kind: {
       type: DataTypes.STRING(30),
       unique: true,
       allowNull: false,
     },
-    password: {
+    description: {
       type: DataTypes.STRING(128),
-      allowNull: false,
-    },
-    email: {
-      type: DataTypes.STRING(50),
-      unique: true,
-      allowNull: false,
-    },
-    phone: {
-      type: DataTypes.STRING(16),
-      unique: true,
       allowNull: false,
     },
     isActive: {
@@ -34,11 +25,15 @@ User.init(
       defaultValue: false,
     },
   },
+
   {
     sequelize,
     timestamps: false,
-    modelName: 'User',
+    modelName: 'Animal',
   },
+  Animal.hasMany(animalCard, {
+    foreignKey: 'id',
+  }),
 );
 
 /*export { User };*/
