@@ -1,28 +1,37 @@
 import { addAnimal } from '../scripts/animals/addAnimal.js';
+import { deleteAnimal } from '../scripts/animals/deleteAnimal.js';
+import { editAnimal } from '../scripts/animals/editAnimal.js';
+
 const animalContoller = {
-  addAnimal: async (req, res) => {
-    const { aType, aBirthday, aNumber, aMoniker, aFood, aDescription } = req.body;
-    const aPhoto = req.file ? '/images/' + req.file.filename : null;
-    const classInstance = await addAnimal(
-      aType,
-      aBirthday,
-      aNumber,
-      aMoniker,
-      aFood,
-      aDescription,
-      aPhoto,
-    );
+  addAnimal: async (req) => {
+    const { kind, description } = req.body;
+    const classInstance = await addAnimal(kind, description);
 
     if (classInstance.message) {
-      return res.status(200).json({
+      return {
         message: `${classInstance.message}`,
-      });
+      };
     }
   },
-  /*
-  editAnimal: async (req, res) => {},
 
-  deleteAnimal: async (req, res) => {},
-  */
+  deleteAnimal: async (req) => {
+    const { aId } = req.body;
+    const classInstance = await deleteAnimal(aId);
+    if (classInstance.message) {
+      return {
+        message: `${classInstance.message}`,
+      };
+    }
+  },
+
+  editAnimal: async (req) => {
+    const { aId } = req.body;
+    const classInstance = await editAnimal(aId);
+    if (classInstance.message) {
+      return {
+        message: `${classInstance.message}`,
+      };
+    }
+  },
 };
 export default animalContoller;

@@ -1,9 +1,9 @@
 import Animal from '../../models/animal.js';
 
-const addAnimal = async (aType, aBirthday, aNumber, aMoniker, aFood, aDescription, aPhoto) => {
-  await Animal.create({ aType, aBirthday, aNumber, aMoniker, aFood, aDescription, aPhoto });
+const addAnimal = async (kind, description) => {
+  await Animal.create({ kind, description });
   return {
-    message: `Congratulations, animal card added succesfully!`,
+    message: `Congratulations, animal added succesfully!`,
   };
 };
 

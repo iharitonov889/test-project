@@ -6,9 +6,8 @@ const router = express.Router();
 router.post('/registration', userController.registerUser);
 router.post('/confirmOtp', userController.confirmOtp);
 router.post('/resendOtp', userController.resendOtp);
-router.post('/authorization', userController.authUser);
+router.post('/authorization', userController.authorizationUser);
 
 export default router;
 
-//module.exports = router;
 //http://localhost:9000/user/registration

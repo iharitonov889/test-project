@@ -8,4 +8,4 @@ router.get('/getAnimals', animalController.getAnimals);
 router.delete('/deleteAnimal', animalController.deleteAnimal);
 router.post('editAnimal', animalController.editAnimal);
 
-module.exports = router;
+export default router;

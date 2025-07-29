@@ -26,12 +26,12 @@ server.listen(PORT, () => {
 });
 
 //npx kill-port 9000
+
 //node --env-file=config/.env index.ts
+
 /*
 app.listen(PORT, async () => {
   console.log('Server: Connection successful on Port ' + PORT);
   await sequelize.sync();
 });
 */
-
-//node --env-file=config/.env index.ts
