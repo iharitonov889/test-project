@@ -7,5 +7,7 @@ const sequelize = new Sequelize(config.db.dbName, config.db.user, config.db.pass
   dialect: config.db.dialect,
   logging: false,
 });
+
 export default sequelize;
+
 /*export the connection  export { sequelize };*/

@@ -1,6 +1,6 @@
 import { Model, DataTypes } from 'sequelize';
 import sequelize from '../../db/index.js';
-import animalCard from './animalCard.js';
+import AnimalCard from './animalCard.js';
 
 export default class Animal extends Model {}
 Animal.init(
@@ -20,9 +20,10 @@ Animal.init(
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    isActive: {
+    removed: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      allowNull: false,
+      defaultValue: false,
     },
   },
 
@@ -31,9 +32,9 @@ Animal.init(
     timestamps: false,
     modelName: 'Animal',
   },
-  Animal.hasMany(animalCard, {
-    foreignKey: 'id',
-  }),
 );
+
+Animal.hasMany(AnimalCard, { foreignKey: 'animalId', sourceKey: 'id' });
+AnimalCard.belongsTo(Animal, { foreignKey: 'animalId', targetKey: 'id' });
 
 /*export { User };*/

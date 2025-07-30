@@ -38,9 +38,10 @@ AnimalCard.init(
       type: DataTypes.STRING(128),
       allowNull: false,
     },
-    isActive: {
+    removed: {
       type: DataTypes.BOOLEAN,
-      defaultValue: true,
+      allowNull: false,
+      defaultValue: false,
     },
   },
   {
